@@ -71,7 +71,7 @@ jobs:
           subject-path: "backend/.bin/*"
 
       - name: Upload binaries artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v4
         with:
           path: backend/.bin/*
           name: binaries
@@ -129,7 +129,7 @@ jobs:
           provenance: true
 
       - name: Upload SBOM artifact (${{ matrix.display }})
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v4
         with:
           path: sbom-output/${{ matrix.target }}
           name: SBOM-${{ matrix.target }}
@@ -157,19 +157,19 @@ jobs:
         run: echo "value=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       - name: Download binaries
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v4
         with:
           name: binaries
           path: binaries
 
       - name: Download manager SBOM
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v4
         with:
           name: SBOM-manager
           path: sbom/manager
 
       - name: Download agent SBOM
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v4
         with:
           name: SBOM-agent
           path: sbom/agent
