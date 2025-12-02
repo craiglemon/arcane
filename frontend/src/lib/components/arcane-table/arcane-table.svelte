@@ -27,8 +27,14 @@
 	import ChevronsUpDownIcon from '@lucide/svelte/icons/chevrons-up-down';
 	import EyeOffIcon from '@lucide/svelte/icons/eye-off';
 	import * as Select from '$lib/components/ui/select/index.js';
-	import type { HTMLAttributes } from 'svelte/elements';
+	import type { SvelteHTMLElements } from 'svelte/elements';
 	import { cn } from '$lib/utils.js';
+
+	type DivAttributes = SvelteHTMLElements['div'];
+	type PlainHeaderProps = { title: string } & DivAttributes;
+	type ColumnHeaderProps = { column: Column<TData, unknown>; title: string } & DivAttributes;
+	type PaginationProps = { table: TableType<TData> };
+	type MobileCardProps = { row: Row<TData>; item: TData };
 	import type { Paginated, SearchPaginationSortRequest } from '$lib/types/pagination.type';
 	import type { Snippet } from 'svelte';
 	import type { ColumnSpec } from './arcane-table.types.svelte';
@@ -433,11 +439,11 @@
 	<span class="max-w-[500px] truncate">{value ?? ''}</span>
 {/snippet}
 
-{#snippet PlainHeader({ title, class: className, ...restProps }: { title: string } & HTMLAttributes)}
+{#snippet PlainHeader({ title, class: className, ...restProps }: PlainHeaderProps)}
 	<div class={className} {...restProps}>{title}</div>
 {/snippet}
 
-{#snippet Pagination({ table }: { table: TableType })}
+{#snippet Pagination({ table }: PaginationProps)}
 	<div class="flex w-full flex-col gap-4 px-2 sm:flex-row sm:items-center sm:justify-between">
 		<div class="text-muted-foreground order-2 text-sm sm:order-1">
 			{m.common_showing_of_total({ shown: items.data.length, total: totalItems })}
@@ -490,11 +496,11 @@
 	</div>
 {/snippet}
 
-{#snippet MobileCard({ row, item }: { row: Row; item: TData })}
+{#snippet MobileCard({ row, item }: MobileCardProps)}
 	{@render mobileCard({ row, item, mobileFieldVisibility })}
 {/snippet}
 
-{#snippet ColumnHeader({ column, title, class: className, ...restProps }: { column: Column; title: string } & HTMLAttributes)}
+{#snippet ColumnHeader({ column, title, class: className, ...restProps }: ColumnHeaderProps)}
 	{#if !column?.getCanSort()}
 		<div class={className} {...restProps}>
 			{title}
