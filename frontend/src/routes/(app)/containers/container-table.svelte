@@ -220,14 +220,16 @@
 {/snippet}
 
 {#snippet ImageCell({ item }: { item: ContainerSummaryDto })}
-	<Tooltip.Root>
-		<Tooltip.Trigger class="block max-w-[200px] cursor-default truncate text-left lg:max-w-[300px]">
-			{item.image}
-		</Tooltip.Trigger>
-		<Tooltip.Content>
-			<p>{item.image}</p>
-		</Tooltip.Content>
-	</Tooltip.Root>
+	<Tooltip.Provider>
+		<Tooltip.Root>
+			<Tooltip.Trigger class="block max-w-[200px] cursor-default truncate text-left lg:max-w-[300px]">
+				{item.image}
+			</Tooltip.Trigger>
+			<Tooltip.Content>
+				<p>{item.image}</p>
+			</Tooltip.Content>
+		</Tooltip.Root>
+	</Tooltip.Provider>
 {/snippet}
 
 {#snippet CreatedCell({ item }: { item: ContainerSummaryDto })}
@@ -243,7 +245,7 @@
 }: {
 	row: any;
 	item: ContainerSummaryDto;
-	mobileFieldVisibility: Record<string, boolean>;
+	mobileFieldVisibility: Record;
 })}
 	<UniversalMobileCard
 		{item}
@@ -407,7 +409,7 @@
 	</DropdownMenu.CheckboxItem>
 {/snippet}
 
-{#snippet GroupedTableView({ table }: { table: TableType<ContainerSummaryDto> })}
+{#snippet GroupedTableView({ table }: { table: TableType })}
 	<div class="mb-4 flex items-center justify-end border-b px-6 py-4">
 		<DataTableViewOptions {table} customViewOptions={CustomViewOptions} />
 	</div>
