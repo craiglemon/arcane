@@ -29,9 +29,10 @@
 		eo: 'Esperanto',
 		es: 'Español',
 		fr: 'Français',
-		nl: 'Nederlands',
 		it: 'Italiano',
-		zh: 'Chinese'
+		nl: 'Nederlands',
+		'pt-BR': 'Português brasileiro',
+		zh: '中文'
 	};
 
 	async function updateLocale(locale: Locale) {
