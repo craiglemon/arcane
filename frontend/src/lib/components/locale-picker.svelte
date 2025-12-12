@@ -32,6 +32,7 @@
 		it: 'Italiano',
 		nl: 'Nederlands',
 		'pt-BR': 'Português brasileiro',
+		ru: 'Русский',
 		zh: '中文'
 	};
 
