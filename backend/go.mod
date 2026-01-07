@@ -15,7 +15,7 @@ require (
 	github.com/emersion/go-sasl v0.0.0-20241020182733-b788ff22d5a6
 	github.com/emersion/go-smtp v0.24.0
 	github.com/fsnotify/fsnotify v1.9.0
-	github.com/getarcaneapp/arcane/types v0.0.0-20260107215448-e947e1776c6f
+	github.com/getarcaneapp/arcane/types v0.0.0-20260107215709-10ac44bcce4a
 	github.com/gin-contrib/cors v1.7.6
 	github.com/gin-gonic/gin v1.11.0
 	github.com/glebarez/sqlite v1.11.0
