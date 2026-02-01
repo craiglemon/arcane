@@ -27,6 +27,8 @@ RUN pnpm -C frontend build
 FROM --platform=$BUILDPLATFORM golang:1.25-trixie AS backend-builder
 ARG TARGETARCH
 ARG BUILD_TAGS
+ARG VERSION="dev"
+ARG REVISION="unknown"
 WORKDIR /build
 
 RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl git tzdata jq \ 
@@ -43,8 +45,8 @@ COPY .arcane.json ../arcane.json
 
 COPY --from=frontend-builder /build/frontend/dist ./frontend/dist
 RUN --mount=type=cache,target=/root/.cache/go-build \
-    VERSION=$(jq -r '.version // "dev"' ../arcane.json) && \
-    REVISION=$(jq -r '.revision // "unknown"' ../arcane.json) && \
+    if [ "${VERSION}" = "dev" ]; then VERSION=$(jq -r '.version // "dev"' ../arcane.json); fi && \
+    if [ "${REVISION}" = "unknown" ]; then REVISION=$(jq -r '.revision // "unknown"' ../arcane.json); fi && \
     BUILD_TIME=$(date -u '+%Y-%m-%dT%H:%M:%SZ') && \
     CGO_ENABLED=0 GOOS=linux GOARCH=$TARGETARCH \
     go build \
@@ -57,8 +59,8 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
 # Stage 3: Production Image
 FROM debian:trixie-slim AS runner
 ARG TARGETARCH
-ARG VERSION="dev"
-ARG REVISION="unknown"
+ARG VERSION
+ARG REVISION
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends ca-certificates curl tzdata tar gzip \
